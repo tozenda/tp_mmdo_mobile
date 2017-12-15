@@ -4,11 +4,13 @@
       Affichage de résultats
     </ion-title>
   </ion-navbar>
+  <ion-searchbar [(ngModel)]="query" (ionInput)="onInput()"></ion-searchbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
 <ion-list>
-  <button ion-item *ngFor="let item of results" >
+  <ion-item *ngIf="results | async">Aucun élément</ion-item>
+  <button ion-item *ngFor="let item of results" [navPush]="aboutDetails" [navParams]="{currentItem : item}">
     <ion-thumbnail item-start>
       <img [src]="item.image">
     </ion-thumbnail>

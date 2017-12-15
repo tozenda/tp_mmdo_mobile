@@ -1,22 +1,45 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { NgForOf } from '@angular/common';
+import { DetailsPage } from '../details/details';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
+import { AsyncPipe } from '@angular/common';
+import { api_key } from '../../app/tmdb';
 
-interface item{
-  title:string;
-  author:string;
-  date:string;
-  image:string;
+interface item {
+  title: string;
+  poster_path: string;
+  release_date: string;
+  overview: string;
 }
 
-const i: item = { title: 'Lorem Ipsum', author: 'moi lol', date: '01/01/1990', image: "https://placeimg.com/50/50/any"};
+//const i: item = { title: 'Lorem Ipsum', release_date: "01/01/1990", poster_path : "https://placeimg.com/50/50/any", overview :"Lorem Ipsum sim dolor amet"};
 
-const items: item[] = [i,i,i,i,i,i,i,i,i,i,i,i];
+const items: item[] = [];
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  results : item[] = items;
+  results: Observable<item[]>;
+  query: string = "";
+  aboutDetails = DetailsPage;
+  item : item;
+  constructor (private httpClient : HttpClient){
+
+  }
+  onInput() {
+    if (this.query === "") {
+      this.results = Observable.of([]);
+    }
+    else{
+      this.results = this.fetchResults();
+    }
+  }
+  fetchResults():Observable<item[]>{
+    return this.httpClient.get<item[]>("https://api.themoviedb.org/3/search/movie",{
+      params: new HttpParams().set("api_key",api_key).set("query",this.query)
+    }).pluck("results")
+  }
 }

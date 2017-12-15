@@ -1,18 +1,22 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 
+interface item {
+  title: string;
+  author: string;
+  date: string;
+  image: string;
+}
 
 @Component({
   selector: 'page-details',
   templateUrl: 'details.html',
 })
+
 export class DetailsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailsPage');
+  itemToDescribe : item;
+  constructor(private navParams: NavParams) {
+    this.itemToDescribe = this.navParams.get("currentItem");
   }
 
 }
