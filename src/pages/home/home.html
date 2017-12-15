@@ -9,13 +9,13 @@
 
 <ion-content >
 <ion-list>
-  <ion-item *ngIf="results | async">Aucun élément</ion-item>
-  <button ion-item *ngFor="let item of results" [navPush]="aboutDetails" [navParams]="{currentItem : item}">
+  <ion-item *ngIf="!(results | async)?.length">Aucun élément</ion-item>
+  <button ion-item *ngFor="let item of results | async" [navPush]="aboutDetails" [navParams]="{currentItem : item}">
     <ion-thumbnail item-start>
-      <img [src]="item.image">
+      <img [src]="'https://image.tmdb.org/t/p/w92/'+item.poster_path">
     </ion-thumbnail>
     <h2>{{item.title}}</h2>
-    <p>{{item.author}} • {{item.date}}</p>
+    <p>{{item.release_date}}</p>
   </button>
 </ion-list>
 </ion-content>

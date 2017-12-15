@@ -15,4 +15,6 @@
 
 <ion-content padding>
   <h1>{{itemToDescribe.title}}</h1>
+  <img [src]="'https://image.tmdb.org/t/p/w500/'+itemToDescribe.poster_path">
+  <p>{{itemToDescribe.overview}}</p>
 </ion-content>

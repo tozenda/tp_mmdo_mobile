@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
-
 interface item {
   title: string;
-  author: string;
-  date: string;
-  image: string;
+  poster_path: string;
+  release_date: string;
+  overview: string;
 }
 
 @Component({
